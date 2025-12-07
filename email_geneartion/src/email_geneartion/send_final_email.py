@@ -10,9 +10,9 @@ subject = lines[0].replace("Subject: ", "") if lines[0].lower().startswith("subj
 body = "\n".join(lines)
 
 # YOUR credentials
-your_email = "i220759@nu.edu.pk"
-app_password = "oari swol posd ltmw"
-receiver_email = "amaarkhan25@gmail.com"
+your_email = "mahadrehman04@gmail.com"
+app_password = "vxrx aoxt bmas dqbi"
+receiver_email = "i220792@nu.edu.pk"
 
 # Send
 send_email(subject, body, receiver_email, your_email, app_password)

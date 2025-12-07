@@ -1,26 +1,15 @@
-Subject: Application for Frontend Developer Position - Amaar Khan
+Subject: Urgent: Hostel Hot Water Geyser Still Not Working
 
-Dear Hiring Manager,
+Dear Hostel Management,
 
-I am writing to express my keen interest in the Frontend Developer position advertised on LinkedIn.  Having followed TechValley's work in innovative web application development, I am confident my skills and experience align perfectly with your requirements.
+I am writing to report a persistent issue regarding the hot water geyser in the hostel. As of today, the geyser is still not operational, and consequently, there is no hot water available for showering.
 
-I recently completed my Bachelor of Science in Computer Science from FAST-NUCES, Islamabad.  My academic background, combined with three months of professional experience in React development at TechValley and my ongoing three-month internship at the KP Assembly, has provided me with a solid foundation in front-end technologies.
+This situation is causing significant inconvenience for all residents, impacting daily hygiene and comfort. We kindly request an urgent update on the status of this issue and an estimated time for its resolution.
 
-My skills encompass:
+Please advise on what steps are being taken to rectify this problem promptly. We also inquire if any temporary alternative arrangements for hot water or showering facilities can be made available in the interim.
 
-* **Proficient in:** ReactJS, TypeScript, HTML, CSS/SCSS, JavaScript, and Redux (state management concepts).
-* **Experience with:** Material UI, Axios, and Chart.js.
-* **Basic understanding of:** Node.js and backend integration.
-
-I am a quick learner, adaptable to Agile environments, and possess excellent communication skills, capable of clearly explaining complex technical concepts.  My resume, attached for your review, provides further detail on my qualifications and projects.
-
-Given my experience, skills, and enthusiasm for TechValley's work, I am confident I can make a significant contribution to your team. I am available for an interview at your earliest convenience.
-
-Thank you for your time and consideration.
+Thank you for your immediate attention to this pressing matter.
 
 Sincerely,
 
-Amaar Khan
-amaarkhan25@gmail.com
-03329156521
-https://www.linkedin.com/in/amaar-khan-749506297/
+A Concerned Resident

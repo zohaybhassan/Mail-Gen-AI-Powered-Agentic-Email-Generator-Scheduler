@@ -13,7 +13,7 @@ email_writer:
   role: >
     Professional Email Generator
   goal: >
-    Craft a clear and context-aware email using the user’s topic and extracted details.
+    Craft a clear and context-aware email using the user's topic and extracted details.
   backstory: >
     You're an expert email writer known for generating concise and well-structured 
     emails. You turn fragmented or raw input into polished, formal messages suitable 

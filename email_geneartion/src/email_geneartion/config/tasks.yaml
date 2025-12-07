@@ -20,6 +20,7 @@ generate_email_task:
     A polished, formal email including subject, greeting, complete body with context, and proper closing.
     No placeholders, brackets, or unfinished parts should exist in the email.
     All information should be filled in with actual details from the document.
+    ONLY GIVE ME THE EMAIL CONTENT, NO THINKING STEPS OR EXTRA TEXT.
     Format: Subject: [email subject]
     [blank line]
     [email body]
