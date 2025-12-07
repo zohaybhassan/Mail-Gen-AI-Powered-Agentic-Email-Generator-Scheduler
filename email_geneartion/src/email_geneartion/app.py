@@ -10,6 +10,8 @@ import os
 import json
 import uuid
 import atexit
+import requests
+from urllib.parse import urlparse
 from werkzeug.utils import secure_filename
 from .crew import EmailGeneartion
 from .doc_reader import read_document
@@ -39,8 +41,111 @@ class EmailForm(FlaskForm):
     app_password = PasswordField('Gmail App Password', validators=[DataRequired()], render_kw={"placeholder": "16-character app password"})
     document = FileField('Document (for content)', validators=[Optional(), FileAllowed(['txt', 'pdf', 'docx'], 'Only txt, pdf, and docx files are allowed!')])
     attachments = FileField('Attachments (optional)', validators=[Optional(), FileAllowed(['pdf', 'docx', 'txt', 'jpg', 'png', 'xlsx'], 'File type not allowed!')])
+    attachment_url = StringField('Attachment URL (optional)', validators=[Optional()], render_kw={"placeholder": "https://example.com/document.pdf"})
     send_now = SelectField('Send Option', choices=[('now', 'Send Now'), ('schedule', 'Schedule for Later')], default='now')
     send_time = DateTimeLocalField('Send Time', validators=[Optional()], format='%Y-%m-%dT%H:%M')
+
+def convert_google_drive_url(url):
+    """Convert Google Drive share link to direct download URL and extract filename"""
+    try:
+        # Pattern: https://drive.google.com/file/d/{FILE_ID}/view?...
+        if 'drive.google.com' in url and '/file/d/' in url:
+            file_id = url.split('/file/d/')[1].split('/')[0]
+            # Get file metadata to retrieve the actual filename
+            try:
+                api_url = f"https://drive.google.com/uc?id={file_id}&export=json"
+                response = requests.get(api_url, timeout=10)
+                # This won't work directly, but we'll use a different approach
+            except:
+                pass
+            return f"https://drive.google.com/uc?id={file_id}&export=download", file_id
+        return url, None
+    except:
+        return url, None
+
+def download_file_from_url(url, save_folder):
+    """Download a file from URL and save it locally"""
+    try:
+        print(f"📥 Downloading file from URL: {url}")
+        
+        # Convert Google Drive link to direct download URL
+        converted_url, file_id = convert_google_drive_url(url)
+        print(f"📥 Converted URL: {converted_url}")
+        
+        # Send request to download the file with proper headers
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+        response = requests.get(converted_url, timeout=30, headers=headers, allow_redirects=True)
+        response.raise_for_status()
+        
+        # Extract filename from URL or Content-Disposition header
+        filename = None
+        
+        # Try to get filename from Content-Disposition header (most reliable)
+        if 'content-disposition' in response.headers:
+            content_disposition = response.headers['content-disposition']
+            if 'filename=' in content_disposition:
+                filename = content_disposition.split('filename=')[1].strip('"\'')
+        
+        # Fallback: Extract from URL
+        if not filename:
+            parsed_url = urlparse(converted_url.split('?')[0])  # Remove query parameters
+            filename = os.path.basename(parsed_url.path)
+        
+        # Determine file extension from content-type
+        content_type = response.headers.get('content-type', 'application/octet-stream').split(';')[0]
+        ext_map = {
+            'application/pdf': '.pdf',
+            'application/msword': '.doc',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
+            'application/vnd.ms-excel': '.xls',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '.xlsx',
+            'image/jpeg': '.jpg',
+            'image/png': '.png',
+            'text/plain': '.txt',
+            'text/csv': '.csv',
+            'application/zip': '.zip',
+        }
+        
+        # If still no filename or no extension, generate one based on content type
+        if not filename or '.' not in filename:
+            ext = ext_map.get(content_type, '.tmp')
+            filename = f"attachment_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
+        else:
+            # If filename exists but extension doesn't match content-type, add the correct extension
+            current_ext = os.path.splitext(filename)[1].lower()
+            if not current_ext or current_ext == '.tmp':
+                ext = ext_map.get(content_type, '.tmp')
+                if ext != '.tmp':
+                    filename = os.path.splitext(filename)[0] + ext
+        
+        # Secure the filename
+        filename = secure_filename(filename)
+        filepath = os.path.join(save_folder, filename)
+        
+        # Save the file
+        with open(filepath, 'wb') as f:
+            f.write(response.content)
+        
+        print(f"✅ File downloaded successfully: {filename}")
+        return filepath
+        
+    except requests.exceptions.Timeout:
+        raise Exception("Download timeout: URL took too long to respond (>30 seconds)")
+    except requests.exceptions.ConnectionError:
+        raise Exception("Connection error: Unable to connect to the URL")
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
+            raise Exception("File not found (404): Check if the URL is correct")
+        elif e.response.status_code == 403:
+            raise Exception("Access denied (403): Make sure the file is publicly shared")
+        elif e.response.status_code == 401:
+            raise Exception("Authentication required (401): File may require login to access")
+        else:
+            raise Exception(f"HTTP error {e.response.status_code}: {e}")
+    except Exception as e:
+        raise Exception(f"Failed to download file from URL: {str(e)}")
 
 def generate_email_content(topic, doc_text):
     """Generate email content using CrewAI"""
@@ -145,6 +250,16 @@ def send_email_route():
                 attach_file.save(attach_path)
                 attachments.append(attach_path)
                 print(f"📎 Attachment saved: {attach_filename}")
+            
+            # Handle attachment URL
+            if form.attachment_url.data and form.attachment_url.data.strip():
+                try:
+                    url_attachment_path = download_file_from_url(form.attachment_url.data, app.config['ATTACH_FOLDER'])
+                    attachments.append(url_attachment_path)
+                except Exception as e:
+                    print(f"❌ Error downloading attachment from URL: {e}")
+                    flash(f'❌ Failed to download attachment from URL: {str(e)}', 'error')
+                    return render_template('index.html', form=form)
             
             # Prepare email data
             email_data = {

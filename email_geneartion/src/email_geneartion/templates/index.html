@@ -44,6 +44,16 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="{{ form.attachment_url.id }}" class="form-label">
+                                <i class="fas fa-link me-2"></i>Attachment URL (Optional)
+                            </label>
+                            {{ form.attachment_url(class="form-control", placeholder="https://example.com/document.pdf or Google Drive share link") }}
+                            <div class="form-text">Provide a direct download link to a file (e.g., from Google Drive, Dropbox, etc.). The file will be downloaded and attached to the email.</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="{{ form.to_email.id }}" class="form-label">
                                 <i class="fas fa-paper-plane me-2"></i>Recipient Email
