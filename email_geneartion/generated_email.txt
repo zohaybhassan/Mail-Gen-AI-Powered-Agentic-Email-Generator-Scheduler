@@ -1,13 +1,70 @@
-Subject: Completion of the Image Processing Project
+Subject: Inquiry Regarding Professional Background and Skills - Zohaib Hassan
 
-Dear Stakeholders,
+Dear Hiring Manager,
 
-We are pleased to announce the successful completion of "The Project Of Image Proc."
+I hope this email finds you well.
 
-We appreciate the hard work and dedication involved in reaching this milestone. Further information regarding project outcomes and any subsequent steps will be communicated as appropriate.
+This email outlines my professional background, experience, and technical skills, as extracted from my resume, which I believe may be of interest for potential work opportunities.
 
-Thank you for your continued support.
+**Contact Information:**
+*   **Name:** Zohaib Hassan
+*   **Phone:** +923 327751603
+*   **Email:** i220800@nu.edu.pk
+*   **LinkedIn Profile:** Zohaib Hassan | LinkedIn
+
+**Education:**
+*   **National University of Computer and Emerging Sciences, Islamabad**
+    *   Bachelor of Science in Computer Sciences (Commenced: August 2022)
+
+**Work Experience:**
+
+*   **Software Internship – Aesthetic Dental Co (Remote)**
+    *   **Dates:** December 2024 – February 2025
+    *   **Role:** Digital Content and Front-End Manager
+    *   **Key Responsibilities:** Managed digital content and front-end development for a new website, worked with React, and managed databases.
+
+*   **Software Internship – Teresol Pvt. Ltd. Islamabad (On-site)**
+    *   **Dates:** June 2024 – August 2024
+    *   **Role:** Front-End Developer
+    *   **Key Responsibilities:** Developed an online web application using Vue.JS and FSM.
+
+*   **NASCON’24 – FAST NUCES Islamabad (On-site)**
+    *   **Dates:** February 2024 – March 2024
+    *   **Role:** Digital Operations Officer
+    *   **Key Responsibilities:** Handled various database management queries using Microsoft Excel and Word.
+
+*   **Gaming Guide Writer – FAST NUCES Islamabad (On-site)**
+    *   **Dates:** February 2024 – March 2024
+    *   **Role:** Gaming Guide Writer
+    *   **Key Responsibilities:** Wrote gaming guides for "veryaligaming" and published articles on their website using Wordpress.
+
+*   **Content Writer – Freelance (Remote)**
+    *   **Dates:** April 2023 – Present
+    *   **Key Responsibilities:** Writes content on diverse subjects, ranging from marketing to humanities.
+
+*   **Admissions Office – FAST NUCES Islamabad (On-site)**
+    *   **Dates:** June 2023 – August 2023
+    *   **Role:** Admissions Team Intern
+    *   **Key Responsibilities:** Assisted with the admissions process using the University Online Portal - FLEX, and developed/implemented Excel and Word skills.
+
+**Key Projects:**
+
+*   **Prime Fitness Gym Management System:** Developed a web application using JavaFX, JDBC, Springtool, and JavaScript. Implemented a multi-tier client-server architecture with GRASP patterns and integrated with a mySQL database.
+*   **Online Library Management System:** Developed a web application utilizing Vue.js, Vuex, HTML, CSS, JavaScript, and Firebase database. Employed FSM for state management.
+*   **TORCS Racing Simulator:** Developed a racing game incorporating MLP Regressor and AI concepts, with trained datasets for the final product.
+*   **Plants Vs Zombies Game Development:** Developed the game using C++ and SFML, applying OOP concepts of inheritance and designing appropriate UML for polymorphism.
+*   **Tetris Game Development:** Worked on the C++ skeleton code with SFML and Ubuntu, applying PF concepts and utilizing arrays and pointers for code manipulation.
+*   **Pacman Game Development:** Developed the game from scratch using Assembly and Irvine, employing 32-bit architecture in masm 615 for the x8086 processor.
+
+**Technical Skills:**
+*   **Languages:** C++, Python, Assembly Language, HTML, CSS, Java, JavaScript.
+
+**Other Experience:**
+*   **Social Media Team** | FDSS, FAST NUCES Islamabad (October 2022 – December 2023): Actively participated in numerous events and workshops.
+*   **Community Service** | Islamabad (February 2022 – Ongoing): Participated in several Presidential tree plantation and cleanliness drives.
+
+Please feel free to reach out if you require any further details or wish to discuss potential opportunities. I am available for a conversation at your convenience.
 
 Sincerely,
 
-The Project Team
+Zohaib Hassan

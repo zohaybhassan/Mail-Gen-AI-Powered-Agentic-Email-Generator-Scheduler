@@ -1,0 +1,10 @@
+crewai[tools]>=0.140.0,<1.0.0
+yagmail>=0.15.0
+PyPDF2>=3.0.0
+python-docx>=0.8.11
+flask>=2.0.0
+flask-wtf>=1.0.0
+wtforms>=3.0.0
+email-validator>=2.0.0
+apscheduler>=3.10.0
+python-dateutil>=2.8.0
