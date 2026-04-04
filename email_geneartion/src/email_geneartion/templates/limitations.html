@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}MVP Limitations - MailGen{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-header bg-gradient text-white" style="background: linear-gradient(45deg, #667eea, #764ba2);">
+                <h2 class="mb-0">
+                    <i class="fas fa-exclamation-circle me-2"></i>MVP Limitations & Known Constraints
+                </h2>
+                <p class="mb-0 mt-1">Transparency about what MailGen can and cannot do</p>
+            </div>
+            <div class="card-body p-4">
+
+                <!-- What This MVP Does -->
+                <div class="mb-4">
+                    <h4 class="text-success"><i class="fas fa-check-circle me-2"></i>What This MVP Delivers</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>AI-powered email generation from documents</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Multi-format document analysis (.txt, .pdf, .docx)</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>End-to-end user flow (upload &rarr; generate &rarr; send)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Email scheduling for future delivery</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Gmail SMTP integration with App Passwords</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>File attachment support (upload, URL, folder)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Known Limitations -->
+                <div class="mb-4">
+                    <h4 class="text-warning"><i class="fas fa-exclamation-triangle me-2"></i>Known Limitations</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 30%;">Limitation</th>
+                                    <th style="width: 45%;">Impact</th>
+                                    <th style="width: 25%;">Why Acceptable for MVP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>In-Memory Scheduling</strong></td>
+                                    <td>Scheduled emails are lost if the server restarts. No persistent storage.</td>
+                                    <td>Proves scheduling concept; database integration planned for production</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gmail Only</strong></td>
+                                    <td>Only supports Gmail SMTP with App Passwords. No Outlook, Yahoo, etc.</td>
+                                    <td>Gmail covers ~30% of global email; validates core sending workflow</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No User Accounts</strong></td>
+                                    <td>No login, history, or personalization across sessions</td>
+                                    <td>MVP tests whether core value (AI generation) works, not user management</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No Email Preview/Edit</strong></td>
+                                    <td>Users cannot review or modify the AI-generated email before sending</td>
+                                    <td>Validates AI quality assumption; preview is a Phase 2 feature</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Single Recipient</strong></td>
+                                    <td>Can only send to one email address at a time</td>
+                                    <td>Primary use case (job applications) is 1:1 communication</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>AI Quality Variance</strong></td>
+                                    <td>Output quality depends on document clarity and topic specificity. Occasional hallucination possible.</td>
+                                    <td>Inherent LLM limitation; mitigated by document-grounding via Agent 1</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No Offline Support</strong></td>
+                                    <td>Requires internet for AI (Gemini API) and email (Gmail SMTP)</td>
+                                    <td>Cloud APIs are the standard approach; offline not needed for validation</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Processing Time</strong></td>
+                                    <td>Email generation takes 15–40 seconds due to multi-agent processing</td>
+                                    <td>Still 10× faster than manual workflow; optimization possible later</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- What We Deliberately Did Not Build -->
+                <div class="mb-4">
+                    <h4 class="text-info"><i class="fas fa-ban me-2"></i>Deliberately Not Built</h4>
+                    <p class="text-muted">These features were considered but intentionally excluded to keep the MVP focused on core value validation:</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-light mb-2">
+                                <div class="card-body py-2">
+                                    <i class="fas fa-times text-muted me-2"></i><strong>Email Templates Library</strong>
+                                    <br><small class="text-muted">Would add complexity without testing core AI generation hypothesis</small>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-2">
+                                <div class="card-body py-2">
+                                    <i class="fas fa-times text-muted me-2"></i><strong>Multi-Language Support</strong>
+                                    <br><small class="text-muted">English-only validates the core workflow first</small>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-2">
+                                <div class="card-body py-2">
+                                    <i class="fas fa-times text-muted me-2"></i><strong>Analytics Dashboard</strong>
+                                    <br><small class="text-muted">Metrics tracking is a post-PMF feature</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-light mb-2">
+                                <div class="card-body py-2">
+                                    <i class="fas fa-times text-muted me-2"></i><strong>OAuth Gmail Login</strong>
+                                    <br><small class="text-muted">App Passwords are simpler to implement and test</small>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-2">
+                                <div class="card-body py-2">
+                                    <i class="fas fa-times text-muted me-2"></i><strong>Mobile App</strong>
+                                    <br><small class="text-muted">Web interface is responsive; native app is premature</small>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-2">
+                                <div class="card-body py-2">
+                                    <i class="fas fa-times text-muted me-2"></i><strong>Batch Email Sending</strong>
+                                    <br><small class="text-muted">1:1 personalized sending is the core differentiator</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Failure Handling -->
+                <div class="mb-4">
+                    <h4 class="text-danger"><i class="fas fa-shield-alt me-2"></i>How We Handle Failures</h4>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-danger">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-file-excel fa-2x text-danger mb-2"></i>
+                                    <h6>Invalid Document</h6>
+                                    <p class="small text-muted">Unsupported formats, corrupted files, or empty documents are caught with clear error messages before AI processing begins.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-warning">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-robot fa-2x text-warning mb-2"></i>
+                                    <h6>AI Generation Failure</h6>
+                                    <p class="small text-muted">If the AI produces empty/short output or API fails, the user gets a specific error message instead of a broken email being sent.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-info">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-envelope-open fa-2x text-info mb-2"></i>
+                                    <h6>Send Failure</h6>
+                                    <p class="small text-muted">Invalid credentials, wrong email format, or SMTP errors are caught and reported. Scheduled emails track "failed" status with error details.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Email Generator
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,232 +1,202 @@
-# AI Email Scheduler & Generator
+#  MailGen — AI-Powered Agentic Email Generator & Scheduler
 
-A comprehensive web-based email generation and scheduling system using CrewAI framework with a beautiful Flask frontend. Generate and schedule professional emails with AI assistance, document analysis, and attachment support.
+> **Course**: AI Product Development — Phase 3: MVP Development & Demo
 
-## 🌟 Features
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
+[![CrewAI](https://img.shields.io/badge/CrewAI-Multi--Agent-purple.svg)](https://github.com/joaomdmoura/crewAI)
+[![Gemini](https://img.shields.io/badge/Google_Gemini-AI-orange.svg)](https://ai.google.dev/)
 
-- **🌐 Web Interface**: Beautiful, responsive web frontend for easy email management
-- **⏰ Email Scheduling**: Schedule emails for future delivery with date/time picker
-- **📄 Document Analysis**: Upload and analyze `.txt`, `.pdf`, and `.docx` files for content
-- **🤖 AI-Powered Generation**: Uses Gemini AI to craft professional, context-aware emails
-- **📎 File Attachments**: Upload multiple attachments or use files from `Attach_folders`
-- **📧 Gmail Integration**: Secure sending via Gmail SMTP with App Password
-- **📊 Scheduling Dashboard**: View, manage, and cancel scheduled emails
-- **🔄 Real-time Status**: Track email status (scheduled, sent, failed, cancelled)
-- **📱 Mobile Friendly**: Responsive design works on desktop and mobile devices
+---
+
+## 📌 What Problem Does MailGen Solve?
+
+Professionals waste **10–15 minutes per email** context-switching between document viewers, AI tools, email clients, and calendars. Job seekers report spending **45+ minutes** drafting their first application email.
+
+**MailGen reduces this to under 30 seconds** through a multi-agent AI pipeline that reads your document, extracts relevant information, and generates a complete professional email — ready to send or schedule.
+
+---
+
+## ✨ Core Features (MVP)
+
+| Feature | Description |
+|---------|-------------|
+| 🤖 **AI Email Generation** | Two specialized AI agents (Document Analyzer + Email Writer) work sequentially |
+| 📄 **Document Intelligence** | Upload `.txt`, `.pdf`, or `.docx` → AI extracts context |
+| ⏰ **Email Scheduling** | Schedule emails for future delivery with APScheduler |
+| 📎 **Attachment Support** | Upload files, Google Drive URLs, or use the `Attach_folders` directory |
+| 📧 **Gmail Integration** | Secure SMTP sending via Gmail App Passwords |
+| 📊 **Scheduling Dashboard** | View, track status, and cancel scheduled emails |
+| ⚠️ **Failure Handling** | Validates inputs, catches AI errors, reports failures clearly |
+| 📋 **Limitations Page** | Transparent about what the MVP can and cannot do |
+
+---
+
+## 🏗️ Architecture
+
+```
+User Input (Topic + Document + Credentials)
+        │
+        ▼
+┌─────────────────────────────┐
+│  doc_reader.py              │  Reads .txt / .pdf / .docx
+└──────────┬──────────────────┘
+           ▼
+┌─────────────────────────────┐
+│  Agent 1: Document Extractor│  Analyzes document, extracts key info
+│  (CrewAI + Gemini AI)       │
+└──────────┬──────────────────┘
+           ▼
+┌─────────────────────────────┐
+│  Agent 2: Email Writer      │  Crafts complete professional email
+│  (CrewAI + Gemini AI)       │
+└──────────┬──────────────────┘
+           ▼
+┌─────────────────────────────┐
+│  email_sender.py (yagmail)  │  Sends via Gmail SMTP
+│  + APScheduler (optional)   │  Or schedules for later
+└─────────────────────────────┘
+```
+
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+- Python 3.10+
+- Gmail account with [App Password](https://support.google.com/accounts/answer/185833) enabled
+- [Google Gemini API key](https://aistudio.google.com/)
 
-- Python 3.10 or higher
-- Gmail account with App Password enabled
-- Google Gemini API key
+### Setup
 
-### Installation
+```bash
+# 1. Clone the repo
+git clone <your-repo-url>
+cd MailGen-Agentic-Mailer/email_geneartion
 
-1. **Clone and navigate to the project**:
-   ```bash
-   git clone <your-repo-url>
-   cd crewai-email-generation/email_geneartion
-   ```
+# 2. Install dependencies
+pip install -e .
+# OR using uv:
+uv install
 
-2. **Install dependencies**:
-   ```bash
-   uv install
-   # OR
-   pip install -r requirements.txt
-   ```
+# 3. Create .env file
+echo "MODEL=gemini/gemini-2.5-flash" > .env
+echo "GEMINI_API_KEY=your_api_key_here" >> .env
 
-3. **Set up environment variables**:
-   Create a `.env` file in the project root:
-   ```env
-   MODEL=gemini/gemini-1.5-flash
-   GEMINI_API_KEY=your_gemini_api_key_here
-   ```
+# 4. Run the web app
+python run_flask_app.py
+```
 
-4. **Start the web application**:
-   ```bash
-   python run_flask_app.py
-   # OR
-   python -m src.email_geneartion.app
-   ```
+Open **http://localhost:5000** in your browser.
 
-5. **Open your browser**:
-   Navigate to `http://localhost:5000`
+### Using the App
 
-## 🖥️ Web Interface Usage
+1. Enter an **email topic** (e.g., "Job Application for Software Engineer at Google")
+2. Optionally **upload a document** (resume, proposal, etc.) for AI analysis
+3. Enter **recipient email**, your **Gmail**, and your **App Password**
+4. Choose **Send Now** or **Schedule for Later**
+5. Click **Generate & Send Email** → AI creates and sends the email
 
-### 📧 Send Email Immediately
+---
 
-1. **Fill in the form**:
-   - Enter email topic (e.g., "Job Application", "Meeting Request")
-   - Upload a document for AI content analysis (optional)
-   - Add file attachments (optional)
-   - Enter recipient and your Gmail details
-   - Enter your Gmail App Password
-
-2. **Select "Send Now"** and click "Process Email"
-
-3. **AI will**:
-   - Analyze your document
-   - Generate professional email content
-   - Send immediately to recipient
-
-### ⏰ Schedule Email for Later
-
-1. **Fill in the form** (same as above)
-
-2. **Select "Schedule for Later"**
-
-3. **Pick date and time** using the datetime picker
-
-4. **Click "Process Email"**
-
-5. **Email will be automatically sent** at the scheduled time
-
-### 📊 Manage Scheduled Emails
-
-- **View scheduled emails**: Navigate to `/scheduled_emails`
-- **Cancel emails**: Click cancel button next to any scheduled email
-- **Check status**: See if emails are scheduled, sent, failed, or cancelled
-- **Debug scheduler**: Visit `/debug/scheduler` for technical details
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 email_geneartion/
-├── src/
-│   └── email_geneartion/
-│       ├── main.py              # Main application entry point
-│       ├── crew.py              # CrewAI crew configuration
-│       ├── doc_reader.py        # Document reading utilities
-│       ├── email_sender.py      # Email sending functionality
-│       └── config/
-│           ├── agents.yaml      # AI agent configurations
-│           └── tasks.yaml       # Task definitions
-├── docs/                        # Place your documents here
-├── Attach_folders/             # Place files to attach here
-├── pyproject.toml              # Project dependencies
-└── .env                        # Environment variables
+├── src/email_geneartion/
+│   ├── app.py              # Flask web application (routes, forms, scheduling)
+│   ├── crew.py             # CrewAI multi-agent pipeline configuration
+│   ├── doc_reader.py       # Document reader (.txt, .pdf, .docx)
+│   ├── email_sender.py     # Gmail SMTP sender (yagmail)
+│   ├── main.py             # CLI interface
+│   ├── config/
+│   │   ├── agents.yaml     # AI agent role/goal/backstory definitions
+│   │   └── tasks.yaml      # Task descriptions and expected outputs
+│   └── templates/
+│       ├── base.html       # Base layout (Bootstrap 5)
+│       ├── index.html      # Email form page
+│       ├── scheduled_emails.html  # Dashboard
+│       └── limitations.html      # MVP limitations page
+├── docs/                   # Sample documents for testing
+├── Attach_folders/         # Default attachment directory
+├── pyproject.toml          # Dependencies & build config
+├── run_flask_app.py        # Flask launcher
+├── start_webapp.bat        # Windows launcher
+├── test_scheduler.py       # Scheduler test script
+└── .env                    # API keys (not committed)
 ```
 
-## Usage
+---
 
-1. **Run the application**:
-   ```bash
-   crewai run
-   ```
+## 🧪 Sample Data
 
-2. **Follow the prompts**:
-   - Enter the topic/subject of your email
-   - Provide the path to your document (e.g., `docs/req.txt`)
-   - Enter recipient's email address
-   - Enter your Gmail address
-   - Enter your Gmail App Password
+The `docs/` folder contains sample documents for testing:
 
-3. **File attachments**:
-   - Place any files you want to attach in the `Attach_folders` directory
-   - The system will automatically include all files from this folder
+- **`req.txt`** — A job description + user qualifications for a Frontend Developer position
 
-## Supported Document Types
+The `Attach_folders/` directory contains sample PDFs that auto-attach to sent emails.
 
-- **Text files** (`.txt`)
-- **PDF files** (`.pdf`) - requires PyPDF2
-- **Word documents** (`.docx`) - requires python-docx
+**Why this data is sufficient for MVP**: The primary use case is job applications, and `req.txt` contains a realistic job posting with user info — exactly what a real user would provide.
 
-## Dependencies
+---
 
-- `crewai[tools]` - AI crew framework
-- `yagmail` - Email sending
-- `PyPDF2` - PDF reading
-- `python-docx` - Word document reading
+## ⚠️ Known Limitations
 
-## Configuration
+| Limitation | Impact | MVP Justification |
+|-----------|--------|-------------------|
+| In-memory scheduling | Emails lost on restart | Proves concept; DB planned for production |
+| Gmail only | No Outlook/Yahoo support | Gmail covers primary audience |
+| No email preview/edit | Can't review before send | Tests AI quality assumption directly |
+| No user accounts | No history across sessions | MVP tests core value, not user management |
+| 15-40 sec processing | Not instant | Still 10× faster than manual workflow |
+| English only | No multi-language | Validates core workflow first |
 
-### Agents (config/agents.yaml)
-- **doc_extractor**: Analyzes and extracts key information from documents
-- **email_writer**: Generates professional emails from extracted information
+Full details at **http://localhost:5000/limitations** when the app is running.
 
-### Tasks (config/tasks.yaml)
-- **extract_doc_task**: Extracts relevant information from the provided document
-- **generate_email_task**: Creates a complete email with subject and body
+---
 
-## Example Usage
+## 🔧 Technical Decisions & Trade-offs
+
+| Decision | Rationale |
+|----------|-----------|
+| **CrewAI** over single-prompt | Multi-agent separation improves output quality — doc analysis and email writing are distinct skills |
+| **Google Gemini** over GPT-4 | Free tier available, fast inference, sufficient quality for email generation |
+| **Flask** over Django/FastAPI | Lightweight, fast to build, sufficient for MVP web UI |
+| **APScheduler** over Celery | No need for a message broker; in-process scheduling is simpler for MVP |
+| **yagmail** over smtplib | Simplified Gmail SMTP; handles auth and attachments cleanly |
+| **In-memory storage** over DB | No infrastructure overhead; validates scheduling workflow first |
+| **Bootstrap CDN** over custom CSS | Rapid UI development; looks professional without frontend engineering |
+
+---
+
+## 🧪 Testing
 
 ```bash
-# Start the application
+# Test the scheduler independently
+python test_scheduler.py
+
+# Test email generation via CLI
 crewai run
 
-# Example inputs:
-# Topic: "Application for Frontend Developer Position"
-# Document: "docs/job_application.txt"
-# Recipient: "hr@company.com"
-# Your Gmail: "your.email@gmail.com"
-# App Password: "your16charpassword"
+# Test the web app
+python run_flask_app.py
+# → http://localhost:5000
 ```
 
-## Output
+---
 
-The system will:
-1. Analyze your document
-2. Generate a professional email with proper subject and body
-3. Send the email with any attachments from `Attach_folders`
-4. Save the generated email to `generated_email.txt`
+## 📚 Documentation Index
 
-## Troubleshooting
+| Document | Purpose |
+|----------|---------|
+| `README.md` | This file — setup, usage, architecture |
+| `PHASE_1_BUSINESS_ANALYSIS.md` | Business viability analysis (market, pricing, competition) |
+| `PHASE_1_DOCUMENTATION.md` | Phase 1 technical documentation |
+| `FIXES_SUMMARY.md` | Bug fixes changelog |
+| `how it works.md` | Comprehensive technical reference |
 
-### Common Issues
+---
 
-1. **ModuleNotFoundError**: 
-   ```bash
-   uv install  # Reinstall dependencies
-   ```
+## 📄 License
 
-2. **API Key Invalid**:
-   - Check your `.env` file
-   - Verify your Gemini API key is correct
-   - Ensure no extra spaces in the API key
-
-3. **Gmail Authentication Error**:
-   - Ensure 2-factor authentication is enabled
-   - Use App Password, not regular password
-   - Check Gmail security settings
-
-4. **File Not Found**:
-   - Verify document path is correct
-   - Use relative paths from the project root
-   - Check file permissions
-
-### API Key Setup
-
-1. Go to [Google AI Studio](https://aistudio.google.com/)
-2. Create a new API key
-3. Copy the key to your `.env` file
-4. Ensure the key has proper permissions
-
-### Gmail App Password Setup
-
-1. Go to Google Account → Security
-2. Enable 2-Factor Authentication
-3. Go to App Passwords
-4. Generate password for "Mail"
-5. Use this 16-character password in the application
-
-## Development
-
-To modify the email generation logic:
-- Edit `config/agents.yaml` to change agent behavior
-- Edit `config/tasks.yaml` to modify task descriptions
-- Modify `crew.py` to change the workflow
-
-## License
-
-This project is open source and available under the MIT License.
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section
-2. Verify your API keys and passwords
-3. Ensure all dependencies are installed
-4. Check file paths and permissions
+MIT License — see `how it works.md` for full text.
