@@ -45,3 +45,4 @@ def _read_docx(path: str) -> str:
         return "ERROR: python-docx not installed. Run: pip install python-docx"
     except Exception as e:
         return f"ERROR reading .docx file: {str(e)}"
+

@@ -36,3 +36,4 @@ if __name__ == "__main__":
         print("❌ All fields are required.")
     else:
         send_generated_email(sender, password, recipient)
+

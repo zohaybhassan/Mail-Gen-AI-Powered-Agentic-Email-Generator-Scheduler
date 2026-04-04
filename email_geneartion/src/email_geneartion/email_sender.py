@@ -27,3 +27,4 @@ def send_email(subject, body, to_email, from_email, app_password, attachments=No
             raise Exception(f"Could not connect to Gmail SMTP. Check your internet connection. Details: {e}")
         else:
             raise Exception(f"Failed to send email: {e}")
+

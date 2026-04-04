@@ -25,3 +25,4 @@ generate_email_task:
     [blank line]
     [email body]
   agent: email_writer
+

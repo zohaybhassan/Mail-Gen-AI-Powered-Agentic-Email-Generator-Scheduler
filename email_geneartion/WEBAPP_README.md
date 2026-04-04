@@ -133,3 +133,4 @@ To modify the application:
 ## License
 
 This project is part of the CrewAI email generation system.
+

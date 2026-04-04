@@ -16,3 +16,4 @@ echo.
 cd /d "%~dp0"
 python run_flask_app.py
 pause
+

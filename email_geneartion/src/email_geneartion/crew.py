@@ -52,3 +52,4 @@ class EmailGeneartion():
             process=Process.sequential,
             verbose=False
         )
+

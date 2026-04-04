@@ -98,3 +98,4 @@ User → Flask Web UI → doc_reader.py → CrewAI Pipeline → email_sender.py 
 ---
 
 *MailGen — Built with CrewAI, Google Gemini, Flask, and Python*
+
